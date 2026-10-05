@@ -1,6 +1,10 @@
 <?php
 
-require_once __DIR__ . '/bd.php';
+
+$env = parse_ini_file(__DIR__ . '/.env');   
+foreach ($env as $key => $value) {
+    putenv("$key=$value");
+}
 
 $conn = bd::connect();
 
