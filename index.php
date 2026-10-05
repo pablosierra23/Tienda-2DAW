@@ -1,16 +1,12 @@
 <?php
 
+require_once __DIR__ . '/bd.php';
 
-$env = parse_ini_file(__DIR__ . '/.env');   
-foreach ($env as $key => $value) {
-    putenv("$key=$value");
+$vista = $_GET['var'] ?? 'registro';
+
+if ($vista === 'login') {
+    require __DIR__ . '/views/loginView.php';
+} else {
+    require __DIR__ . '/views/registerView.php';
 }
-
-$conn = bd::connect();
-
-if ($conn->connect_errno) {
-    die('Conexión fallida: ' . $conn->connect_error);
-}
-
-$conn->set_charset('utf8mb4');
 ?>
