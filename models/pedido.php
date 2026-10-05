@@ -5,6 +5,8 @@ class Pedido {
     private $usuarioId;
     private $fecha;
     private $total;
+    private $carrito=[];
+    
 
     public function __construct($id, $usuarioId, $fecha, $total) {
         $this->id = $id;
