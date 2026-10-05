@@ -1,0 +1,17 @@
+# Ignorar dependencias / paquetes
+node_modules/
+vendor/
+
+# Ignorar archivos de entorno / secretos
+.env
+.env.local
+
+# Ignorar archivos de logs o temporales
+*.log
+*.tmp
+
+# Ignorar carpetas del sistema u objetos de compilación
+.DS_Store
+dist/
+build/
+*.exe
