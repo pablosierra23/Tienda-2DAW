@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['usuario_id'] = $usuario->getId();
             $_SESSION['usuario_nombre'] = $usuario->getNombre();
 
-            header('Location: ../index.php');
+            header('Location: ../index.php?var=main');
             exit();
         }
     }

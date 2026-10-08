@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $usuario = new Usuario(null, $nombre, $email, password_hash($password, PASSWORD_DEFAULT));
         $usuario->save();
 
-        header('Location: ../index.php');
+        header('Location: ../index.php?var=main');
         exit();
     }
 }

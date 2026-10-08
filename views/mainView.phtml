@@ -1,40 +1,49 @@
+<?php
+require_once __DIR__ . '/../controllers/productoController.php';
+
+$productoController = new ProductoController();
+$error = '';
+
+try {
+    $productos = $productoController->listar();
+} catch (RuntimeException $exception) {
+    $productos = [];
+    $error = $exception->getMessage();
+}
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tienda</title>
 </head>
 <body>
+    <nav>
+        <a href="index.php?var=main">Productos</a>
+        <a href="index.php?var=registro">Registrarse</a>
+        <a href="index.php?var=login">Iniciar sesión</a>
+    </nav>
 
-    <a href="index.php?var=registro">Registrarse</a>
-    <a href="index.php?var=login">Iniciar sesion</a>
+    <h1>Productos</h1>
 
-    <br><br>
+    <?php if ($error !== ''): ?>
+        <p><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></p>
+    <?php elseif (count($productos) === 0): ?>
+        <p>No hay productos disponibles.</p>
+    <?php else: ?>
+        <ul>
+            <?php foreach ($productos as $producto): ?>
+                <li>
+                    <?= htmlspecialchars($producto->getNombre(), ENT_QUOTES, 'UTF-8') ?>
+                    -
+                    <?= number_format($producto->getPrecio(), 2, ',', '.') ?> €  
+                    <a href="index.php?var=addToCart&id=<?= urlencode($producto->getId()) ?>">Añadir al carrito</a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
 
-    <?php
-
-        if (isset($_GET['var'])) {
-            $opcion = $_GET['var'];
-        }else{
-            $opcion = 'registro';
-        }
-
-        if ($opcion == 'registro') {
-            echo '<h1>Registro</h1>';
-            echo '<form action="index.php?var=registro" method="POST">';
-            echo '<input type="text" name="nombre" placeholder="Nombre">';
-            echo '<input type="text" name="email" placeholder="Email">';
-            echo '<input type="password" name="password" placeholder="Contraseña">';    
-        }else if ($opcion == 'login') {
-            echo '<h1>Login</h1>';
-            echo '<form action="index.php?var=login" method="POST">';
-            echo '<input type="text" name="email" placeholder="Email">';
-            echo '<input type="password" name="password" placeholder="Contraseña">';    
-        }else {
-            echo '<h1>Opcion no valida</h1>';   
-        }
-
-    ?>
 </body>
 </html>
