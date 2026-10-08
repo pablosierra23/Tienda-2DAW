@@ -31,9 +31,6 @@
             return $this->password;
         }
 
-        
-
-
         public function setNombre($nombre) {
             $this->nombre = $nombre;
         }
